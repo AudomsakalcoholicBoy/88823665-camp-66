@@ -30,7 +30,7 @@
                         @csrf
                         @method('delete')
                         <input type="hidden" name="id" value="{{ $user->id }}">
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" onsubmit="confirm_delete()" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
               </tr>
@@ -52,4 +52,25 @@
       <!-- /.card -->
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    function confirm_delete(){
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+            }).then(function(result) {
+                console.log("Result",result)
+                if (result.isconfirmed) {
+                    console.log("Delete It!", result)
+                }
+            });
+        }
+</script>
 @endsection

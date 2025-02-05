@@ -10,18 +10,24 @@
             <div class="card">
                 <div class="card-body register-card-body">
                     <p class="register-box-msg">Register a new membership</p>
-                    <form action="{{ url('/register') }}" method="post">
+                    <form action="{{ url('/register') }}" onsubmit="return myfunction();" method="post">
                         @csrf
                         <div class="input-group mb-3">
-                            <input type="text" name="name" class="form-control" placeholder="Full Name" />
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Full Name" />
                             <div class="input-group-text"><span class="bi bi-person"></span></div>
+                            <div class="valid-feedback">
+                                Looks good!
+                            </div>
+                            <div class="invalid-feedback" id="invalid-name">
+                                กรุณาระบุข้อมูล name
+                            </div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="email" name="email" class="form-control" placeholder="Email" />
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Email" />
                             <div class="input-group-text"><span class="bi bi-envelope"></span></div>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" name="password" class="form-control" placeholder="Password" />
+                            <input type="password" name="password" id="pass" class="form-control" placeholder="Password" />
                             <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
                         </div>
                         <!--begin::Row-->
@@ -37,13 +43,14 @@
                             <!-- /.col -->
                             <div class="col-4">
                                 <div class="d-grid gap-2">
-                                    <button type="submit" class="btn btn-primary">Sign In</button>
+                                    <button type="submit" id="mycheckbox" onclick="myfunction()" class="btn btn-primary">Sign In</button>
                                 </div>
                             </div>
                             <!-- /.col -->
                         </div>
                         <!--end::Row-->
                     </form>
+                    <button class="btn" id="mycheckbox" onclick="myfunction()" >Click me</button>
                     <!-- /.social-auth-links -->
                     <p class="mb-0">
                         <a href="{{ url('/login') }}" class="text-center"> I already have a membership </a>
@@ -53,4 +60,43 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        let $myvalue
+        var myvalue2 = "value of myvalue2"
+        const $myvalue3 = ""
+
+        console.log("Hello World!")
+
+        //alert("Hello World!")
+        /**/
+        //
+        //ALERT("Hello World!")
+        function myfunction(){
+            let name = document.getElementById('name')
+            name = $('#name')
+            let email = document.getElementById('email')
+            let password = document.getElementById('pass')
+            let mycheckbox = document.getElementById('mycheckbox')
+            // name.value = "My Name Value"
+            // name.val("My Name Value")
+            console.log(name.val(), email.value, password.value, mycheckbox.checked)
+            if(name.val() == "My Name Value"){
+                name.addClass('is-invalid');
+                $('#invalid-name').html("<b><u>ใส่ name เป็นค่านี้ไม่ได้</u></b>")
+                return false;
+            } else{
+                name.removeClass('is-invalid')
+            }
+
+            return true;
+        }
+
+        // myfunction()
+    </script>
+    <script>
+        console.log(myvalue2)
+    </script>
 @endsection
